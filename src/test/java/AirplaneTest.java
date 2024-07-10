@@ -47,6 +47,7 @@ class AirplaneTest {
     }
 
     @Test
+    @DisplayName("Test whether toString returns the correct string representation")
     void testToString() {
         Airplane airplane = new Airplane(1, "Boeing 747", 50, 200, 10);
         String expected = String.format("Airplane{model=%s, business sits=%d, economy sits=%d, crew sits=%d}", "Boeing 747", 50, 200, 10);
