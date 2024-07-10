@@ -55,6 +55,7 @@ class AirplaneTest {
     }
 
     @Test
+    @DisplayName("Test whether getAirPlaneInfo returns the correct airplane information")
     void testGetAirPlaneInfoValidID() {
         Airplane airplane = Airplane.getAirPlaneInfo(1);
         assertNotNull(airplane, "getAirPlaneInfo should not return null for a valid ID.");
@@ -65,6 +66,7 @@ class AirplaneTest {
     }
 
     @Test
+    @DisplayName("Test whether getAirPlaneInfo returns null for an invalid ID")
     void testGetAirPlaneInfoInvalidID() {
         Airplane airplane = Airplane.getAirPlaneInfo(999); // Assuming 999 is an invalid ID
         assertNull(airplane, "getAirPlaneInfo should return null for an invalid ID.");
