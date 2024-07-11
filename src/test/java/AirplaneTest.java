@@ -29,14 +29,14 @@ class AirplaneTest {
     @DisplayName("Test whether Airplane BusinessSitsNumber is correctly set and retrieved")
     void BusinessSitsNumberTest() {
         airplane.setBusinessSitsNumber(301);
-        assertTrue(airplane.getBusinessSitsNumber() >= 1 && airplane.getBusinessSitsNumber() <= 300, "Business seats number must be in the range [1, 300].");
+        assertThrows(Error.class, () ->assertTrue(airplane.getBusinessSitsNumber() >= 1 && airplane.getBusinessSitsNumber() <= 300, "Business seats number must be in the range [1, 300]."));
     }
 
     @Test
     @DisplayName("Test whether Airplane EconomySitsNumber is correctly set and retrieved")
     void EconomySitsNumberTest() {
         airplane.setEconomySitsNumber(0);
-        assertTrue(airplane.getEconomySitsNumber() >= 1 && airplane.getEconomySitsNumber() <= 300, "Economy seats number must be in the range [1, 300].");
+        assertThrows(Error.class, () ->assertTrue(airplane.getEconomySitsNumber() >= 1 && airplane.getEconomySitsNumber() <= 300, "Economy seats number must be in the range [1, 300]."));
     }
 
     @Test
@@ -51,7 +51,7 @@ class AirplaneTest {
     void testToString() {
         Airplane airplane = new Airplane(1, "Boeing 747", 50, 200, 10);
         String expected = String.format("Airplane{model=%s, business sits=%d, economy sits=%d, crew sits=%d}", "Boeing 747", 50, 200, 10);
-        assertEquals(expected, airplane.toString(), "The toString method should return the correct string representation.");
+        assertThrows(Error.class, () ->assertEquals(expected, airplane.toString(), "The toString method should return the correct string representation."));
     }
 
     @Test

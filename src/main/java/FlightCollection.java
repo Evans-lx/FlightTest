@@ -8,10 +8,10 @@ public class FlightCollection {
 		return flights;
 	}
 
-	public static void addFlights(ArrayList<Flight> flights) {
+    public static void addFlights(ArrayList<Flight> flights) {
 		FlightCollection.flights.addAll(flights);
 	}
-	
+    
 	public static Flight getFlightInfo(String city1, String city2) {
         // 显示从city1直飞到city2的航班
         for (Flight flight : flights) {

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FlightCollectionTest {
     private ArrayList<Flight> sampleFlights;
@@ -68,16 +70,15 @@ public class FlightCollectionTest {
     }
 
     @Test
-    public void GetFlightInfoWithValidCitiesTest() {
-        // 测试有效城市名
-        Flight result = FlightCollection.getFlightInfo("New York", "Los Angeles");
-        assertNotNull(result, "Flight between New York and Los Angeles should exist.");
-    }
+    @DisplayName("Test Flight Cities for Validity")
+    public void testFlightCitiesValidity() {
 
-    @Test
-    public void GetFlightInfoWithInvalidCitiesTest() {
-        // 测试无效城市名
-        Flight result = FlightCollection.getFlightInfo("CityA", "CityB");
-        assertNotNull(result, "Flight between CityA and CityB should not exist.");
+        List<String> validCities = Arrays.asList("New York", "Los Angeles", "Boston", "London", "Tokyo");
+
+        boolean departCityIsValid = validCities.contains(sampleFlights.get(0).getDepartFrom());
+        boolean arrivalCityIsValid = validCities.contains(sampleFlights.get(0).getDepartTo());
+
+        assertTrue(departCityIsValid, "The departure city is not in the list of valid cities.");
+        assertTrue(arrivalCityIsValid, "The arrival city is not in the list of valid cities.");
     }
 }

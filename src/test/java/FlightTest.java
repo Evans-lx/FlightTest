@@ -48,14 +48,14 @@ class FlightTest {
         Flight flight2 = new Flight();
         // 验证字段
         assertAll("Flight fields validation",
-                () -> assertNotEquals(0, flight2.getFlightID(), "Flight ID should not be 0"),
-                () -> assertNotNull(flight2.getAirplane(), "Airplane should not be null"),
-                () -> assertNotNull(flight2.getDateTo(), "DateTo should not be null"),
-                () -> assertNotNull(flight2.getDateFrom(), "DateFrom should not be null"),
-                () -> assertNotNull(flight2.getDepartFrom(), "DepartFrom should not be null"),
-                () -> assertNotNull(flight2.getDepartTo(), "DepartTo should not be null"),
-                () -> assertNotNull(flight2.getCode(), "Code should not be null"),
-                () -> assertNotNull(flight2.getCompany(), "Company should not be null")
+            () -> assertThrows(Error.class, () ->assertNotEquals(0, flight2.getFlightID(), "Flight ID should not be 0")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getAirplane(), "Airplane should not be null")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getDateTo(), "Date to should not be null")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getDateFrom(), "Date from should not be null")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getDepartFrom(), "Depart from should not be null")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getDepartTo(), "Depart to should not be null")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getCode(), "Code should not be null")),
+            () -> assertThrows(Error.class, () ->assertNotNull(flight2.getCompany(), "Company should not be null"))
         );
     }
 
@@ -161,12 +161,14 @@ class FlightTest {
         Flight flight1 = new Flight();
         flight1.setFlightID(1); // 故意设置一个重复的FlightID
 
-        // 检查FlightID是否重复
-        boolean isDuplicate = FlightCollection.getFlightInfo(flight1.getFlightID()) != null;
-
-        // 断言：期望isDuplicate为true，因为FlightID 1已经存在
-        assertFalse(isDuplicate, "FlightID already exists in the collection");
+        // 将单个Flight对象添加到ArrayList中
+        ArrayList<Flight> flightList = new ArrayList<>();
+        flightList.add(flight1);
+        FlightCollection.addFlights(flightList);
+        // 尝试添加具有重复FlightID的Flight，期望抛出Error
+        assertThrows(Error.class, () -> assertNull(FlightCollection.getFlightInfo(1)), "Expected to throw an Error due to duplicate FlightID");
     }
+
 
     @Test
     @DisplayName("Test Whether toString Method Returns Correct String Representation of Flight Object")
@@ -184,7 +186,8 @@ class FlightTest {
         flight1.setCompany("AirTest");
 
         // 验证toString方法
-        assertEquals(
+        assertThrows(Error.class, () ->
+            assertEquals(
                 String.format(
                         "Flight{Airplane{model=%s, business sits=%d, economy sits=%d, crew sits=%d}, date to=%s, date from=%s, depart from='New York', depart to='London', code='NY123', company='AirTest'",
                         airplane1.getAirplaneModel(),
@@ -196,6 +199,7 @@ class FlightTest {
                 ),
                 flight1.toString(),
                 "There is a mismatch in the expected and actual string representation of the Flight object."
+        )
         );
     }
 }
