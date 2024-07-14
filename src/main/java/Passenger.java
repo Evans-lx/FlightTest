@@ -1,21 +1,19 @@
-public class Passenger extends Person
-{
+public class Passenger extends Person {
     private String email;
     private String phoneNumber;
     private String cardNumber;
     private int securityCode;
     private String passport;
 
-    public Passenger(){}
+    public Passenger() {}
 
-    public Passenger(String firstName, String secondName, int age, String gender,String email, String phoneNumber, String passport, String cardNumber,int securityCode)
-    {
-        super();
-        this.securityCode=securityCode;
-        this.cardNumber=cardNumber;
-        this.passport=passport;
-        this.email=email;
-        this.phoneNumber=phoneNumber;
+    public Passenger(String firstName, String secondName, int age, String gender, String email, String phoneNumber, String passport, String cardNumber, int securityCode) {
+        super(firstName, secondName, age, gender);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setPassport(passport);
+        setCardNumber(cardNumber);
+        setSecurityCode(securityCode);
     }
 
     public String getEmail() {
@@ -23,6 +21,9 @@ public class Passenger extends Person
     }
 
     public void setEmail(String email) {
+        if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            throw new IllegalArgumentException("Invalid email address");
+        }
         this.email = email;
     }
 
@@ -67,6 +68,9 @@ public class Passenger extends Person
     }
 
     public void setSecurityCode(int securityCode) {
+        if (securityCode < 0) {
+            throw new IllegalArgumentException("Invalid security code");
+        }
         this.securityCode = securityCode;
     }
 
@@ -76,6 +80,9 @@ public class Passenger extends Person
     }
 
     public void setPassport(String passport) {
+        if (passport == null || passport.length() > 9) {
+            throw new IllegalArgumentException("Invalid passport number");
+        }
         this.passport = passport;
     }
 
@@ -85,6 +92,9 @@ public class Passenger extends Person
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || !phoneNumber.matches("^0[45][0-9]{8}$")) {
+            throw new IllegalArgumentException("Invalid phone number");
+        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -94,12 +104,11 @@ public class Passenger extends Person
     }
 
     @Override
-    public String toString()
-    {
-        return "Passenger{" + " Fullname= "+ super.getFirstName()+" "+super.getSecondName()+
+    public String toString() {
+        return "Passenger{" + " Fullname= " + super.getFirstName() + " " + super.getSecondName() +
                 " ,email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", passport='" + passport +
+                ", passport='" + passport + '\'' +
                 '}';
     }
 }
